@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     }
     
     // you would generate a JWT token here
-    const token = 'mock-jwt-token';
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
     
     return NextResponse.json({
       success: true,
