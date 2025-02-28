@@ -67,6 +67,7 @@ yarn dev
 
 ## Future Enhancements
 
+- connect to the database
 - Implement proper authentication with JWT
 - Add email notifications
 - Implement file storage for resumes
