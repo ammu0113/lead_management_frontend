@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import Dice from "../assests/dice.jpg";
 import HeartIco from "../assests/smooth_heart.jpg";
 import FileIco from "../assests/file.jpg";
+import axios from "axios";
 
 import {
   Form,
@@ -121,6 +122,10 @@ export default function PublicLeadForm() {
 
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      await axios.post("/api/leads", formData).then((res) => {
+        console.log(res);
+      });
 
       // Redirect to thank you page
       router.push("/thank-you");

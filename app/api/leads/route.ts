@@ -102,10 +102,10 @@ export async function POST(request: NextRequest) {
     const linkedIn = formData.get('linkedIn') as string;
     const additionalInfo = formData.get('additionalInfo') as string;
     
-    // Process visas (multiple values)
+    // // Process visas (multiple values)
     const visas = formData.getAll('visas') as string[];
     
-    // Process file
+    // // Process file
     const resumeFile = formData.get('resume') as File;
     let resumeFileName = '';
     
@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
       resumeFileName = resumeFile.name;
     }
     
-    // Create new lead
+    // // Create new lead
     const newLead = {
       id: leads.length + 1,
       firstName,
@@ -128,12 +128,12 @@ export async function POST(request: NextRequest) {
       status: 'PENDING',
       submittedAt: new Date().toLocaleString(),
     };
-    
-    // you would save this to a database
+
+    // // you would save this to a database
     leads.push(newLead as any);
     console.log(leads);
-    
     return NextResponse.json({ success: true, lead: newLead });
+
   } catch (error) {
     console.error('Error processing lead submission:', error);
     return NextResponse.json(
