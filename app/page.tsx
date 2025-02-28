@@ -10,18 +10,16 @@ export default function Home() {
         {/* Hero section with green background */}
         <div className="relative bg-[#d8e0a8] py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto flex items-center justify-center space-x-6">
-            <div className="hidden md:block">
-              {/* Left Image */}
-              {/* <div className="w-1/3"> */}
-              <Image
-                src={leftImage}
-                alt="Decorative"
-                className="absolute left-0 h-full w-[100px] object-cover"
-                style={{
-                  width: "auto",
-                }}
-              />
-            </div>
+            {/* Left Image */}
+            {/* <div className="w-1/3"> */}
+            <Image
+              src={leftImage}
+              alt="Decorative"
+              className="absolute left-0 h-full w-[100px] object-cover"
+              style={{
+                width: "auto",
+              }}
+            />
 
             {/* Headline Text */}
             <div className="w-2/3">
