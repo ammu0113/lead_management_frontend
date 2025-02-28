@@ -92,8 +92,8 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
-    console.log(formData);
-    console.log(request);
+    // console.log(formData);
+    // console.log(request);
     // Process form data
     const firstName = formData.get('firstName') as string;
     const lastName = formData.get('lastName') as string;
@@ -131,7 +131,7 @@ export async function POST(request: NextRequest) {
 
     // // you would save this to a database
     leads.push(newLead as any);
-    console.log(leads);
+    // console.log(leads);
     return NextResponse.json({ success: true, lead: newLead });
 
   } catch (error) {

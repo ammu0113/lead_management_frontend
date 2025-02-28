@@ -124,7 +124,7 @@ export default function PublicLeadForm() {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       await axios.post("/api/leads", formData).then((res) => {
-        console.log(res);
+        // console.log(res);
       });
 
       // Redirect to thank you page
