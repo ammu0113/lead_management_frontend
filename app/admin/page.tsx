@@ -264,11 +264,11 @@ export default function AdminPage() {
               Login
             </Button>
           </form>
-          <div className="mt-4 text-sm text-center text-gray-500">
+          {/* <div className="mt-4 text-sm text-center text-gray-500">
             <p>Demo credentials:</p>
             <p>Email: admin@alma.ai</p>
             <p>Password: password</p>
-          </div>
+          </div> */}
         </div>
       </div>
     );
