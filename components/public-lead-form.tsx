@@ -78,6 +78,7 @@ export default function PublicLeadForm() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -133,6 +134,37 @@ export default function PublicLeadForm() {
       console.error("Error submitting form:", error);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const files = e.dataTransfer.files;
+    if (files && files[0]) {
+      const file = files[0];
+      if (
+        file.type === "application/pdf" ||
+        file.type === "application/msword" ||
+        file.type ===
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      ) {
+        setResumeFile(file);
+      }
     }
   };
 
@@ -432,35 +464,64 @@ export default function PublicLeadForm() {
 
             {/* Resume Upload */}
             <div className="mt-6">
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6">
-                <div className="text-center">
-                  <FileIcon className="mx-auto h-12 w-12 text-gray-400" />
-                  <div className="mt-2">
-                    <label
-                      htmlFor="file-upload"
-                      className="relative cursor-pointer rounded-md bg-white font-medium text-primary hover:text-primary/80"
-                    >
-                      <span>Upload your resume/CV</span>
-                      <input
-                        id="file-upload"
-                        name="file-upload"
-                        type="file"
-                        className="sr-only"
-                        onChange={handleFileChange}
-                        accept=".pdf,.doc,.docx"
-                      />
-                    </label>
+              <label
+                htmlFor="file-upload"
+                className="block cursor-pointer"
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+              >
+                <div
+                  className={`border-2 border-dashed rounded-lg p-6 transition-colors ${
+                    isDragging
+                      ? "border-primary bg-primary/5"
+                      : "border-gray-300"
+                  } ${!resumeFile ? "hover:border-primary/80" : ""}`}
+                >
+                  <div className="text-center">
+                    <FileIcon className="mx-auto h-12 w-12 text-gray-400" />
+                    <div className="mt-2">
+                      {!resumeFile ? (
+                        <>
+                          <span className="font-medium text-primary hover:text-primary/80">
+                            Upload your resume/CV
+                          </span>
+                          <input
+                            id="file-upload"
+                            name="file-upload"
+                            type="file"
+                            className="sr-only"
+                            onChange={handleFileChange}
+                            accept=".pdf,.doc,.docx"
+                          />
+                          <p className="text-sm text-gray-500 mt-1">
+                            Click or drag and drop your file here
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1">
+                            PDF, DOC, DOCX up to 10MB
+                          </p>
+                        </>
+                      ) : (
+                        <div className="space-y-2">
+                          <p className="text-sm text-green-600 font-medium">
+                            {resumeFile.name}
+                          </p>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setResumeFile(null);
+                            }}
+                            className="text-xs text-red-500 hover:text-red-600"
+                          >
+                            Remove file
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
-                    PDF, DOC, DOCX up to 10MB
-                  </p>
-                  {resumeFile && (
-                    <p className="text-sm text-green-600 mt-2">
-                      {resumeFile.name} selected
-                    </p>
-                  )}
                 </div>
-              </div>
+              </label>
             </div>
 
             <Button
